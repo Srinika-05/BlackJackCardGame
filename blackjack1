@@ -1,0 +1,100 @@
+import random
+
+#Initiating the deck and the player hand variables 
+deck = []
+playerHand = []
+
+#Function for the cards inside YOUR deck
+def totalCardNum(hand):
+  #To keep track of the total points 
+  total = 0
+  #For each object in your list
+  for i in hand: 
+    #if the string is either kq or j
+    if str(i) in "kqj": 
+      #add 10 to your total
+      total += 10
+    #if its not kqj or even a, just add whatever the object is (number value)
+    elif str(i) not in "kqja":
+      total += i
+    #if there is an ace,
+    elif str(i) == "a": 
+      #add 1 to your total
+      total += 1
+  #but if there are more aces in your hand and the if adding 10 to the total you have already
+  # wont go above 21 (max number of points to get to win in blackjack)
+  if total + 10 < 21 and 'a' in hand:
+    #add 10 to your total
+    total += 10
+    
+  #To check the total points to figure out if you lost
+  if total > 21:
+    print("You loose")
+      
+  #print statement to give your total points at the end of stand
+  print("Your total Points: " + str(total))
+      
+  
+    
+
+#Creating the deck here
+#For every 4 
+for x in range(4):
+  #for all the card lists in the deck
+  for card in range(2, 11): 
+    #add in the cards to the deck already established above
+    deck.append(card)
+  
+  #add in the special cards too
+  deck.append("k")
+  deck.append("q")
+  deck.append("j")
+  deck.append("a")
+
+#shuffle the deck so there are different values and cards
+random.shuffle(deck)
+
+#First drawn card for the player, from the first object inside deck
+popped = deck.pop(0)
+#add it to the player hand
+playerHand.append(popped)
+
+#Print your first deck: what you have drawn 
+print("Your deck: " + str(playerHand))
+
+#asking user if they want to stand or hit (end turn or continue drawing)
+userAns = input("Type whether you want to hit or stand  your deck\n" + "'hit', 'stand'\n")
+
+#just to continue the inputs and code
+while True:
+  #if user says they want to hit
+  if userAns == "hit":
+    #take the first object in deck, add it to the player hand
+    popDeck = deck.pop(0)
+    playerHand.append(popDeck)
+    #print player hand
+    print("Your deck: " + str(playerHand))
+    totalCardNum(playerHand)
+    #ask user again if they want to hit or stand
+    userAns = input("Type whether you want to hit or stand  your deck\n" + "'hit', 'stand'\n")
+  #if user says they want to stand instead
+  elif userAns == "stand":
+    #end turn and add in the total deck they have
+    print("Your deck: " + str(playerHand))
+    break
+  else:
+    print("incorrect input. Try again.")
+    userAns = input("Type whether you want to hit or stand  your deck\n" + "'hit', 'stand'\n")
+
+
+    
+
+
+totalCardNum(playerHand)
+
+
+      
+
+    
+      
+  

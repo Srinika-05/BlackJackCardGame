@@ -1,8 +1,10 @@
 import random
 
-#Initiating the deck and the player hand variables 
+#Initiating the deck, the house hand and the player hand variables list
 deck = []
 playerHand = []
+houseHand = ["j", 7]
+
 
 #Function for the cards inside YOUR deck
 def totalCardNum(hand):
@@ -27,12 +29,27 @@ def totalCardNum(hand):
     #add 10 to your total
     total += 10
     
-  #To check the total points to figure out if you lost
-  if total > 21:
-    print("You loose")
-      
-  #print statement to give your total points at the end of stand
-  print("Your total Points: " + str(total))
+  return total
+    
+  # #To check the total points to figure out if you lost
+  # if total > 21:
+  #   print("You loose")
+  #   print("The house wins")
+
+  # #print statement to give your total points at the end of stand
+  # print("Your total Points: " + str(total))
+  
+  
+
+  # if userAns == "stand" and total < 21 or total == 21: 
+  #   while total < 17 or total == 17:
+  #     popDeck = deck.pop(0)
+  #     houseHand.append(popDeck)
+  #     print("The House's deck: " + str(houseHand))
+
+    
+
+  
       
   
     
@@ -59,11 +76,14 @@ popped = deck.pop(0)
 #add it to the player hand
 playerHand.append(popped)
 
+playerTotal = totalCardNum(playerHand)
+
 #Print your first deck: what you have drawn 
 print("Your deck: " + str(playerHand))
 
 #asking user if they want to stand or hit (end turn or continue drawing)
 userAns = input("Type whether you want to hit or stand  your deck\n" + "'hit', 'stand'\n")
+
 
 #just to continue the inputs and code
 while True:
@@ -74,17 +94,36 @@ while True:
     playerHand.append(popDeck)
     #print player hand
     print("Your deck: " + str(playerHand))
-    totalCardNum(playerHand)
+    playerTotal = totalCardNum(playerHand)
+    print("Your total points: " + str(playerTotal))
     #ask user again if they want to hit or stand
     userAns = input("Type whether you want to hit or stand  your deck\n" + "'hit', 'stand'\n")
   #if user says they want to stand instead
   elif userAns == "stand":
     #end turn and add in the total deck they have
     print("Your deck: " + str(playerHand))
-    break
+    print("Your total points: " + str(playerTotal))
+    if playerTotal >  21:
+      print("Player lost, house wins")
+    elif playerTotal < 21 or playerTotal == 21:
+      houseTotal = totalCardNum(houseHand)
+      while houseTotal <= 17:
+        popDeck = deck.pop(0)
+        houseHand.append(popDeck)
+        houseTotal = totalCardNum(houseHand)
+        print("House deck: " + str(houseHand))
+        print("House total points: " + str(houseTotal))
+        if houseTotal > 21 :
+          print("Player wins")
+        elif houseTotal > playerHand:
+          print("House wins")
+    break    
+        
+      
   else:
     print("incorrect input. Try again.")
     userAns = input("Type whether you want to hit or stand  your deck\n" + "'hit', 'stand'\n")
+
 
 
     
